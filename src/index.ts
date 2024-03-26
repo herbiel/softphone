@@ -356,6 +356,12 @@ export default class SipCall {
                 if (param.outNumber){
                     extraHeaders.push("X-JOutNumber: " + param.outNumber)
                 }
+                if (param.department){
+                    extraHeaders.push("X-JOutNumber: " + param.outNumber)
+                }
+                if (param.taskid){
+                    extraHeaders.push("X-JOutNumber: " + param.outNumber)
+                }
             }
             this.outgoingSession = this.ua.call(phone, {
                 eventHandlers: {
