@@ -57,6 +57,8 @@ interface StateListenerMessage {
 interface CallExtraParam {
     outNumber?: string;
     businessId?: String;
+    department?: String;
+    taskid?: String;
 }
 
 const enum State {
@@ -357,10 +359,10 @@ export default class SipCall {
                     extraHeaders.push("X-JOutNumber: " + param.outNumber)
                 }
                 if (param.department){
-                    extraHeaders.push("X-JOutNumber: " + param.outNumber)
+                    extraHeaders.push("X-department: " + param.department)
                 }
                 if (param.taskid){
-                    extraHeaders.push("X-JOutNumber: " + param.outNumber)
+                    extraHeaders.push("X-taskid: " + param.taskid)
                 }
             }
             this.outgoingSession = this.ua.call(phone, {
