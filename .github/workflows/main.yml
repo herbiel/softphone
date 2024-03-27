@@ -1,0 +1,33 @@
+name: publishNpm
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - "v*.*.*"
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+      - name: 读取当前版本号
+        id: version
+        uses: ashley-taylor/read-json-property-action@v1.0
+        with:
+          path: ./package.json
+          property: version
+      - run: echo ${{steps.version.outputs.prop}}
+      - run: yarn
+      - run: yarn run build
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+            tag_name: v${{steps.version.outputs.value}}
+            name: v${{steps.version.outputs.value}}
+            files: |
+              ./lib/bundle.browser.js
